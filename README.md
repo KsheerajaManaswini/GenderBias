@@ -11,7 +11,7 @@ To address the issue of unconscious gender bias in Wikipedia articles, we propos
 
 Presentation:
 
-https://www.canva.com/design/DAF-_ar5ns0/x8ZKMXdh0bY7GNfv4FY7EQ/edit?utm_content=DAF-_ar5ns0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton ](https://www.canva.com/design/DAF-_ar5ns0/x8ZKMXdh0bY7GNfv4FY7EQ/edit?utm_content=DAF-_ar5ns0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+https://www.canva.com/design/DAF-_ar5ns0/x8ZKMXdh0bY7GNfv4FY7EQ/edit?utm_content=DAF-_ar5ns0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
 Conclusion:
 
