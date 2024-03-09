@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhance Content Representation</title>
+  <style>
+    /* Your CSS styles here */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ececec;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(179, 30, 30, 0.1);
+      background: #142d4c; /* White background */
+      color: #333333; /* Dark text color */
+    }
+
+    .input-area {
+      margin-bottom: 20px;
+    }
+
+    .input-area textarea {
+      width: 96%;
+      min-height: 50px;
+      padding: 10px;
+      border: 1px solid ;
+      border-radius: 5px;
+      resize: vertical;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    .btn-group {
+      text-align: right;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      margin-left: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      background-color: #9fd3c7;
+      color: #131313; /* White text color */
+    }
+
+    .btn:hover {
+      background-color: #70757a;
+    }
+    .result-area {
+    border: 1px solid ;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    margin-top: 20px; 
+    font-family: Garamond, serif;
+  }
+  
+  .result-area p {
+    margin: 0 0 10px 0;
+  }
+  * {
+    margin: 0;
+  }
+
+    .loader {
+      position: absolute;
+      left: 50%;
+      top: 65%;
+      margin-left: calc(-15px * 3 + 5px * 2 / 2);
+      margin-top: calc(-15px * 3 + 5px * 2 / 2);
+    }
+
+    .square {
+      background: #142d4c;
+      width: 15px;
+      height: 15px;
+      float: left;
+      top: -10px;
+      margin-right: 5px;
+      margin-top: 5px;
+      position: relative;
+      opacity: 0;
+      -webkit-animation: enter 6s infinite;
+      animation: enter 6s infinite;
+    }
+
+    .enter {
+      top: 0px;
+      opacity: 1;
+    }
+
+    .square:nth-child(1) {
+      -webkit-animation-delay: 6s;
+      animation-delay: 6s;
+    }
+
+    .square:nth-child(2) {
+      -webkit-animation-delay: 7s;
+      animation-delay: 7s;
+    }
+
+    .square:nth-child(3) {
+      -webkit-animation-delay: 8s;
+      animation-delay: 8s;
+      background: #87CEEB;
+    }
+
+    .square:nth-child(4) {
+      -webkit-animation-delay: 3s;
+      animation-delay: 3s;
+    }
+
+    .square:nth-child(5) {
+      -webkit-animation-delay: 4s;
+      animation-delay: 4s;
+    }
+
+    .square:nth-child(6) {
+      -webkit-animation-delay: 5s;
+      animation-delay: 5s;
+    }
+
+    .square:nth-child(8) {
+      -webkit-animation-delay: 1s;
+      animation-delay: 1s;
+    }
+
+    .square:nth-child(9) {
+      -webkit-animation-delay: 2s;
+      animation-delay: 2s;
+    }
+
+    .clear {
+      clear: both;
+    }
+
+    .last {
+      margin-right: 0;
+    }
+
+    @-webkit-keyframes enter {
+      0% {
+        opacity: 0;
+        top: -10px;
+      }
+      5% {
+        opacity: 1;
+        top: 0px;
+      }
+      50.9% {
+        opacity: 1;
+        top: 0px;
+      }
+      55.9% {
+        opacity: 0;
+        top: -10px;
+      }
+    }
+
+    @keyframes enter {
+      0% {
+        opacity: 0;
+        top: -10px;
+      }
+      5% {
+        opacity: 1;
+        top: 0px;
+      }
+      50.9% {
+        opacity: 1;
+        top: 0px;
+      }
+      55.9% {
+        opacity: 0;
+        top: -10px;
+      }
+    }
+
+    @-moz-keyframes enter {
+      0% {
+        opacity: 0;
+        top: -10px;
+      }
+      5% {
+        opacity: 1;
+        top: 0px;
+      }
+      50.9% {
+        opacity: 1;
+        top: 0px;
+      }
+      55.9% {
+        opacity: 0;
+        top: -10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="input-area">
+      <textarea id="keywordInput" placeholder="Enter Keyword.."></textarea>
+    </div>
+    <div class="btn-group">
+      <button class="btn" onclick="fetchGenderBiasedSentences()">Check</button>
+    </div>
+    <div class="loader">
+      <!-- Loader animation -->
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square last"></div>
+      <div class="square clear"></div>
+      <div class="square"></div>
+      <div class="square last"></div>
+      <div class="square clear"></div>
+      <div class="square"></div>
+      <div class="square last"></div>
+    </div>
+    <div class="result-area">
+      <p><strong>Gender Biased Sentences:</strong></p>
+      <ul id="genderBiasedSentences"></ul>
+      <p><strong>Summary without gender bias:</strong></p>
+      <p id="summaryParagraph"></p>
+    </div>
+  </div>
+
+  <script>
+    function fetchGenderBiasedSentences() {
+      // Show loader
+      document.querySelector('.loader').style.display = 'block';
+
+      // Get keyword from input
+      var keyword = document.getElementById('keywordInput').value;
+
+      // Fetch gender-biased sentences using AJAX
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "/fetch-content", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          var result = JSON.parse(xhr.responseText);
+          displayResults(result);
+          document.querySelector('.loader').style.display = 'none'; // Hide loader
+        }
+      };
+      xhr.send("keyword=" + keyword);
+    }
+
+    function displayResults(result) {
+      var list = document.getElementById('genderBiasedSentences');
+      var summaryParagraph = document.getElementById('summaryParagraph');
+
+      // Clear previous content
+      list.innerHTML = '';
+      summaryParagraph.textContent = '';
+
+      // Display gender-biased sentences
+      if (result.gender_biased_sentences.length > 0) {
+        result.gender_biased_sentences.forEach(function(sentence) {
+          var listItem = document.createElement('li');
+          listItem.textContent = sentence;
+          list.appendChild(listItem);
+        });
+      } else {
+        list.innerHTML = '<li>No gender-biased sentences found.</li>';
+      }
+
+      // Display summary paragraph
+      summaryParagraph.textContent = result.summary_paragraph;
+    }
+  </script>
+</body>
+</html>
